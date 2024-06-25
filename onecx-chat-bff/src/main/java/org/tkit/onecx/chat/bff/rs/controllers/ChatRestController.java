@@ -59,29 +59,27 @@ public class ChatRestController implements ChatsApiService {
 
     @Override
     public Response createChat(@Valid @NotNull CreateChatDTO createChatDTO) {
-        System.out.println(createChatDTO.getParticipants());
         Chat c = client.createChat(mapper.map(createChatDTO));
         return Response.status(200).entity(mapper.map(c)).build();
     }
 
     @Override
     public Response createChatMessage(String chatId, @Valid @NotNull CreateMessageDTO createMessageDTO) {
-        Message m = client.createChatMessage(chatId, messageMapper.map(createMessageDTO));
+        client.createChatMessage(chatId, messageMapper.map(createMessageDTO));
 
-        // MessageDTO mDto = messageMapper.map(m);
+        MessageDTO mDto = messageMapper.mapToMessage(createMessageDTO);
 
-        // try (Response r = getChatParticipants(chatId)) {
-        //     List<Participant> l = r.readEntity(ArrayList.class);
-        //     List<String> userNames = new ArrayList<>();
+        try (Response r = getChatParticipants(chatId)) {
+            List<ParticipantDTO> l = r.readEntity(ArrayList.class);
+            List<String> userNames = new ArrayList<>();
 
-        //     l.forEach(p -> {
-        //         userNames.add(p.getUserName());
-        //     });
+            l.forEach(p -> {
+                userNames.add(p.getUserName());
+            });
+            this.socket.sendMessage(userNames, chatId, mDto);
+        }
 
-        //     this.socket.sendMessage(userNames, chatId, mDto);
-        // }
-
-        return Response.status(200).entity(messageMapper.map(m)).build();
+        return Response.status(200).entity(mDto).build();
     }
 
     @Override

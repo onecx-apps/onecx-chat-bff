@@ -11,9 +11,12 @@ import jakarta.websocket.Session;
 import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
 
+import org.tkit.onecx.chat.bff.rs.helper.MessageEncoder;
+import org.tkit.onecx.chat.bff.rs.helper.WebsocketHelperDTO;
+
 import gen.org.tkit.onecx.chat.bff.rs.internal.model.MessageDTO;
 
-@ServerEndpoint("/chats/socket/{userName}")
+@ServerEndpoint(value = "/chats/socket/{userName}", encoders = MessageEncoder.class)
 @ApplicationScoped
 public class ChatSocket {
 
@@ -31,22 +34,16 @@ public class ChatSocket {
 
     public void sendMessage(List<String> userNames, String chatId, MessageDTO messageDTO) {
         WebsocketHelperDTO helperDTO = new WebsocketHelperDTO(chatId, messageDTO);
+
         for (String userName : userNames) {
             Session session = sessions.get(userName);
             if (session != null) {
-                session.getAsyncRemote().sendObject(helperDTO);
+                session.getAsyncRemote().sendObject(helperDTO, result -> {
+                    if (result.getException() != null) {
+                        System.out.println("Unable to send message: " + result.getException());
+                    }
+                });
             }
         }
-    }
-
-    private class WebsocketHelperDTO {
-        private String chatId;
-        private MessageDTO messageDTO;
-
-        WebsocketHelperDTO(String chatId, MessageDTO messageDTO) {
-            this.chatId = chatId;
-            this.messageDTO = messageDTO;
-        }
-
     }
 }
