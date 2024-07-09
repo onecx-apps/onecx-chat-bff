@@ -112,16 +112,16 @@ public class ChatRestController implements ChatsApiService {
 
     @Override
     public Response getChats(Integer pageNumber, Integer pageSize) {
-        List<ChatPageResult> results = client.getChats(pageNumber, pageSize);
-        List<ChatPageResultDTO> resultDTOs = mapper.map(results);
+        ChatPageResult result = client.getChats(pageNumber, pageSize);
+        ChatPageResultDTO resultDTOs = mapper.map(result);
         return Response.status(200).entity(resultDTOs).build();
     }
 
     @Override
     public Response searchChats(@Valid @NotNull ChatSearchCriteriaDTO chatSearchCriteriaDTO) {
-        List<ChatPageResult> results = client.searchChats(mapper.map(chatSearchCriteriaDTO));
-        List<ChatPageResultDTO> resultDTOs = mapper.map(results);
-        return Response.status(200).entity(resultDTOs).build();
+        ChatPageResult result = client.searchChats(mapper.map(chatSearchCriteriaDTO));
+        ChatPageResultDTO resultDTO = mapper.map(result);
+        return Response.status(200).entity(resultDTO).build();
     }
 
     @Override
@@ -131,6 +131,13 @@ public class ChatRestController implements ChatsApiService {
             ChatDTO chatDTO = mapper.map(chat);
             return Response.status(response.getStatus()).entity(chatDTO).build();
         }
+    }
+
+    @Override
+    public Response removeParticipant(String chatId, String participantId) {
+        //TODO implement participant removal in SVC
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeParticipant'");
     }
 
 }

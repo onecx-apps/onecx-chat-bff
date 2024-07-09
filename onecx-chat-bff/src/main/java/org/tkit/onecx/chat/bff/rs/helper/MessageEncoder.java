@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import gen.org.tkit.onecx.chat.bff.rs.internal.model.WebsocketHelperDTO;
+
 public class MessageEncoder implements Encoder.Text<WebsocketHelperDTO> {
 
     private ObjectMapper mapper = new ObjectMapper();

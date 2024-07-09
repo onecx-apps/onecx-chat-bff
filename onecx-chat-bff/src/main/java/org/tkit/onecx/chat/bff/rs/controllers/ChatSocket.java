@@ -12,9 +12,9 @@ import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
 
 import org.tkit.onecx.chat.bff.rs.helper.MessageEncoder;
-import org.tkit.onecx.chat.bff.rs.helper.WebsocketHelperDTO;
 
 import gen.org.tkit.onecx.chat.bff.rs.internal.model.MessageDTO;
+import gen.org.tkit.onecx.chat.bff.rs.internal.model.WebsocketHelperDTO;
 
 @ServerEndpoint(value = "/chats/socket/{userName}", encoders = MessageEncoder.class)
 @ApplicationScoped
@@ -33,7 +33,9 @@ public class ChatSocket {
     }
 
     public void sendMessage(List<String> userNames, String chatId, MessageDTO messageDTO) {
-        WebsocketHelperDTO helperDTO = new WebsocketHelperDTO(chatId, messageDTO);
+        WebsocketHelperDTO helperDTO = new WebsocketHelperDTO();
+        helperDTO.setChatId(chatId);
+        helperDTO.setMessageDTO(messageDTO);
 
         for (String userName : userNames) {
             Session session = sessions.get(userName);

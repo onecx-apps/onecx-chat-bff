@@ -4,7 +4,7 @@ info:
   title: onecx-chat bff
   version: 1.0.0
 servers:
-  - url: "http://onecx-chat-bff:8080"
+  - url: "http://onecx-chat-bff:8081"
 tags:
   - name: chats
   - name: messages  
@@ -124,7 +124,54 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetailResponse'                
+                $ref: '#/components/schemas/ProblemDetailResponse'
+  /chats/{chatId}/participants/{participantId}:
+    delete:
+      tags:
+        - chats
+      description: remove a participant
+      operationId: removeParticipant
+      parameters:
+        - name: chatId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: participantId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Participant removed from chat
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailResponse'
+  /participants:
+    get:
+      tags:
+        - participants
+      description: Get all potential participants
+      operationId: getParticipants
+      responses:
+        "200":
+          description: Participants
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Participant'
+        "400":  
+          description: Bad request
+          content:     
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailResponse'        
   /chats:
     get:
       tags:
@@ -152,9 +199,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ChatPageResult'
+                $ref: '#/components/schemas/ChatPageResult'
     post:
       tags:
         - chats
@@ -266,9 +311,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ChatPageResult'
+                $ref: '#/components/schemas/ChatPageResult'
 components:
   schemas:
     ChatType:
@@ -578,3 +621,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Participant'           
+    WebsocketHelper:
+      required:
+        - messageDTO
+        - chatId
+      type: object
+      properties:
+        chatId:
+          type: string
+        messageDTO:
+          $ref: '#/components/schemas/Message'
