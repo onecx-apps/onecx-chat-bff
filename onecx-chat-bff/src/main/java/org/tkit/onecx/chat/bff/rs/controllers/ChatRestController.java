@@ -112,15 +112,15 @@ public class ChatRestController implements ChatsApiService {
 
     @Override
     public Response getChats(Integer pageNumber, Integer pageSize) {
-        ChatPageResult result = client.getChats(pageNumber, pageSize);
-        ChatPageResultDTO resultDTOs = mapper.map(result);
+        List<ChatPageResult> result = client.getChats(pageNumber, pageSize);
+        List<ChatPageResultDTO> resultDTOs = mapper.map(result);
         return Response.status(200).entity(resultDTOs).build();
     }
 
     @Override
     public Response searchChats(@Valid @NotNull ChatSearchCriteriaDTO chatSearchCriteriaDTO) {
-        ChatPageResult result = client.searchChats(mapper.map(chatSearchCriteriaDTO));
-        ChatPageResultDTO resultDTO = mapper.map(result);
+        List<ChatPageResult> result = client.searchChats(mapper.map(chatSearchCriteriaDTO));
+        List<ChatPageResultDTO> resultDTO = mapper.map(result);
         return Response.status(200).entity(resultDTO).build();
     }
 

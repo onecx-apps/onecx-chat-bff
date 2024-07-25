@@ -166,6 +166,33 @@ public class ChatRestControllerTest extends AbstractTest {
     }
 
     @Test
+    public void addParticipantShouldReturnBadRequest() {
+
+        var chatId = "id";
+
+        ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
+        problemDetailResponse.setErrorCode(String.valueOf(BAD_REQUEST));
+        problemDetailResponse.setDetail("Bad Request");
+
+        mockServerClient.when(request()
+        .withPath("/internal/chats/" + chatId + "/participants")
+        .withMethod(HttpMethod.POST))
+        .withId(mockId)
+        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                .withBody(JsonBody.json(problemDetailResponse)));
+
+        given()
+                .when()
+                .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
+                .header(APM_HEADER_PARAM, ADMIN)
+                .contentType(APPLICATION_JSON)
+                .pathParam("id", chatId)
+                .post()
+                .then()
+                .statusCode(BAD_REQUEST.getStatusCode());
+    }
+
+    @Test
     public void createChatTest() {
         CreateChat createChat = new CreateChat();
         createChat.setType(ChatType.AI_CHAT);
@@ -192,6 +219,30 @@ public class ChatRestControllerTest extends AbstractTest {
                 .extract().body().asString();
 
         assertThat(res).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    public void createChatShouldReturnBadRequest() {
+        
+        ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
+        problemDetailResponse.setErrorCode(String.valueOf(BAD_REQUEST));
+        problemDetailResponse.setDetail("Bad Request");
+
+        mockServerClient.when(request()
+        .withPath("/internal/chats/")
+        .withMethod(HttpMethod.POST))
+        .withId(mockId)
+        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                .withBody(JsonBody.json(problemDetailResponse)));
+
+        given()
+                .when()
+                .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
+                .header(APM_HEADER_PARAM, ADMIN)
+                .contentType(APPLICATION_JSON)
+                .post()
+                .then()
+                .statusCode(BAD_REQUEST.getStatusCode());
     }
 
     @Test
@@ -226,6 +277,33 @@ public class ChatRestControllerTest extends AbstractTest {
     }
 
     @Test
+    public void createChatMessageShouldReturnBadRequest() {
+        
+        var chatId = "id";
+
+        ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
+        problemDetailResponse.setErrorCode(String.valueOf(BAD_REQUEST));
+        problemDetailResponse.setDetail("Bad Request");
+
+        mockServerClient.when(request()
+        .withPath("/internal/chats/" + chatId + "/messages")
+        .withMethod(HttpMethod.POST))
+        .withId(mockId)
+        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                .withBody(JsonBody.json(problemDetailResponse)));
+
+        given()
+                .when()
+                .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
+                .header(APM_HEADER_PARAM, ADMIN)
+                .contentType(APPLICATION_JSON)
+                .pathParam("id", chatId)
+                .post()
+                .then()
+                .statusCode(BAD_REQUEST.getStatusCode());
+    }
+
+    @Test
     public void deleteChatTest() {
         var chatId = "id";
 
@@ -243,6 +321,33 @@ public class ChatRestControllerTest extends AbstractTest {
                 .delete()
                 .then()
                 .statusCode(OK.getStatusCode());
+    }
+
+    @Test
+    public void deleteChatShouldReturnBadRequest() {
+        
+        var chatId = "id";
+
+        ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
+        problemDetailResponse.setErrorCode(String.valueOf(BAD_REQUEST));
+        problemDetailResponse.setDetail("Bad Request");
+
+        mockServerClient.when(request()
+        .withPath("/internal/chats/" + chatId + "/participants")
+        .withMethod(HttpMethod.POST))
+        .withId(mockId)
+        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                .withBody(JsonBody.json(problemDetailResponse)));
+
+        given()
+                .when()
+                .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
+                .header(APM_HEADER_PARAM, ADMIN)
+                .contentType(APPLICATION_JSON)
+                .pathParam("id", chatId)
+                .post()
+                .then()
+                .statusCode(BAD_REQUEST.getStatusCode());
     }
 
     @Test
@@ -277,6 +382,33 @@ public class ChatRestControllerTest extends AbstractTest {
     }
 
     @Test
+    public void getChatMessagesShouldReturnBadRequest() {
+                
+        var chatId = "id";
+
+        ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
+        problemDetailResponse.setErrorCode(String.valueOf(BAD_REQUEST));
+        problemDetailResponse.setDetail("Bad Request");
+
+        mockServerClient.when(request()
+        .withPath("/internal/chats/" + chatId + "/messages")
+        .withMethod(HttpMethod.GET))
+        .withId(mockId)
+        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                .withBody(JsonBody.json(problemDetailResponse)));
+
+        given()
+                .when()
+                .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
+                .header(APM_HEADER_PARAM, ADMIN)
+                .contentType(APPLICATION_JSON)
+                .pathParam("id", chatId)
+                .get()
+                .then()
+                .statusCode(BAD_REQUEST.getStatusCode());
+    }
+
+    @Test
     public void getChatParticipantsTest() {
         var chatId = "id";
 
@@ -305,6 +437,33 @@ public class ChatRestControllerTest extends AbstractTest {
                 .extract().body().asString();
 
         assertThat(res).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    public void getChatParticipantsShouldReturnBadRequest() {
+                
+        var chatId = "id";
+
+        ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
+        problemDetailResponse.setErrorCode(String.valueOf(BAD_REQUEST));
+        problemDetailResponse.setDetail("Bad Request");
+
+        mockServerClient.when(request()
+        .withPath("/internal/chats/" + chatId + "/participants")
+        .withMethod(HttpMethod.GET))
+        .withId(mockId)
+        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                .withBody(JsonBody.json(problemDetailResponse)));
+
+        given()
+                .when()
+                .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
+                .header(APM_HEADER_PARAM, ADMIN)
+                .contentType(APPLICATION_JSON)
+                .pathParam("id", chatId)
+                .get()
+                .then()
+                .statusCode(BAD_REQUEST.getStatusCode());
     }
 
     @Test
@@ -343,6 +502,33 @@ public class ChatRestControllerTest extends AbstractTest {
                 .extract().body().asString();
 
         assertThat(res).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    public void updateChatShouldReturnBadRequest() {
+                
+        var chatId = "id";
+
+        ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
+        problemDetailResponse.setErrorCode(String.valueOf(BAD_REQUEST));
+        problemDetailResponse.setDetail("Bad Request");
+
+        mockServerClient.when(request()
+        .withPath("/internal/chats/" + chatId)
+        .withMethod(HttpMethod.PUT))
+        .withId(mockId)
+        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                .withBody(JsonBody.json(problemDetailResponse)));
+
+        given()
+                .when()
+                .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
+                .header(APM_HEADER_PARAM, ADMIN)
+                .contentType(APPLICATION_JSON)
+                .pathParam("id", chatId)
+                .put()
+                .then()
+                .statusCode(BAD_REQUEST.getStatusCode());
     }
 
     @Test
