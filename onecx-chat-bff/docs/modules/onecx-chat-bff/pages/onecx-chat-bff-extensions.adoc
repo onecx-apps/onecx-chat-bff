@@ -32,6 +32,18 @@ h| Version
 | https://github.com/quarkusio/quarkusio.github.io/blob/develop/_generated-doc/latest/config/quarkus-smallrye-health.adoc[Link]
 | 3.9.3
 
+| quarkus-opentelemetry
+
+| https://quarkus.io/guides/opentelemetry[Link]
+| https://github.com/quarkusio/quarkusio.github.io/blob/develop/_generated-doc/latest/config/quarkus-opentelemetry.adoc[Link]
+| 3.9.3
+
+| quarkus-micrometer-registry-prometheus
+
+| https://quarkus.io/guides/telemetry-micrometer[Link]
+| https://github.com/quarkusio/quarkusio.github.io/blob/develop/_generated-doc/latest/config/quarkus-micrometer-registry-prometheus.adoc[Link]
+| 3.9.3
+
 | quarkus-openapi-generator
 
 | https://docs.quarkiverse.io/quarkus-openapi-generator/dev/index.html[Link]
@@ -68,6 +80,12 @@ h| Version
 | https://github.com/1000kit/tkit-quarkus/blob/2.19.0/docs/modules/tkit-quarkus/pages/includes/tkit-quarkus-rest.adoc[Link]
 | 2.19.0
 
+| tkit-quarkus-rest-context
+
+| https://1000kit.github.io/tkit-quarkus/current/tkit-quarkus/tkit-quarkus-rest-context.html[Link]
+| https://github.com/1000kit/tkit-quarkus/blob/2.19.0/docs/modules/tkit-quarkus/pages/includes/tkit-quarkus-rest-context.adoc[Link]
+| 2.19.0
+
 | tkit-quarkus-jpa
 
 | https://1000kit.github.io/tkit-quarkus/current/tkit-quarkus/tkit-quarkus-jpa.html[Link]
@@ -79,12 +97,6 @@ h| Version
 | https://quarkus.io/guides/validation[Link]
 | https://github.com/quarkusio/quarkusio.github.io/blob/develop/_generated-doc/latest/config/quarkus-hibernate-validator.adoc[Link]
 | 3.9.3
-
-| tkit-quarkus-rest-context
-
-| https://1000kit.github.io/tkit-quarkus/current/tkit-quarkus/tkit-quarkus-rest-context.html[Link]
-| https://github.com/1000kit/tkit-quarkus/blob/2.19.0/docs/modules/tkit-quarkus/pages/includes/tkit-quarkus-rest-context.adoc[Link]
-| 2.19.0
 
 | onecx-permissions
 
@@ -118,6 +130,12 @@ h| Version
 
 
 | quarkus-rest-client-oidc-filter
+
+| 
+| 
+| 3.9.3
+
+| quarkus-websockets
 
 | 
 | 

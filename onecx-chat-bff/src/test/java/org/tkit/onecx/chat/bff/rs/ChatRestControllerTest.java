@@ -18,10 +18,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.model.Header;
 import org.mockserver.model.JsonBody;
-import org.openapi.quarkus.onecx_chat_internal_openapi_yaml.model.*;
 import org.tkit.onecx.chat.bff.rs.controllers.ChatRestController;
 import org.tkit.quarkus.log.cdi.LogService;
 
+import gen.org.tkit.onecx.chat.bff.clients.model.*;
 import gen.org.tkit.onecx.permission.model.ProblemDetailResponse;
 import io.quarkiverse.mockserver.test.InjectMockServerClient;
 import io.quarkiverse.mockserver.test.MockServerTestResource;
@@ -175,11 +175,11 @@ public class ChatRestControllerTest extends AbstractTest {
         problemDetailResponse.setDetail("Bad Request");
 
         mockServerClient.when(request()
-        .withPath("/internal/chats/" + chatId + "/participants")
-        .withMethod(HttpMethod.POST))
-        .withId(mockId)
-        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
-                .withBody(JsonBody.json(problemDetailResponse)));
+                .withPath("/internal/chats/" + chatId + "/participants")
+                .withMethod(HttpMethod.POST))
+                .withId(mockId)
+                .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                        .withBody(JsonBody.json(problemDetailResponse)));
 
         given()
                 .when()
@@ -223,17 +223,17 @@ public class ChatRestControllerTest extends AbstractTest {
 
     @Test
     public void createChatShouldReturnBadRequest() {
-        
+
         ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
         problemDetailResponse.setErrorCode(String.valueOf(BAD_REQUEST));
         problemDetailResponse.setDetail("Bad Request");
 
         mockServerClient.when(request()
-        .withPath("/internal/chats/")
-        .withMethod(HttpMethod.POST))
-        .withId(mockId)
-        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
-                .withBody(JsonBody.json(problemDetailResponse)));
+                .withPath("/internal/chats/")
+                .withMethod(HttpMethod.POST))
+                .withId(mockId)
+                .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                        .withBody(JsonBody.json(problemDetailResponse)));
 
         given()
                 .when()
@@ -278,7 +278,7 @@ public class ChatRestControllerTest extends AbstractTest {
 
     @Test
     public void createChatMessageShouldReturnBadRequest() {
-        
+
         var chatId = "id";
 
         ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
@@ -286,11 +286,11 @@ public class ChatRestControllerTest extends AbstractTest {
         problemDetailResponse.setDetail("Bad Request");
 
         mockServerClient.when(request()
-        .withPath("/internal/chats/" + chatId + "/messages")
-        .withMethod(HttpMethod.POST))
-        .withId(mockId)
-        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
-                .withBody(JsonBody.json(problemDetailResponse)));
+                .withPath("/internal/chats/" + chatId + "/messages")
+                .withMethod(HttpMethod.POST))
+                .withId(mockId)
+                .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                        .withBody(JsonBody.json(problemDetailResponse)));
 
         given()
                 .when()
@@ -325,7 +325,7 @@ public class ChatRestControllerTest extends AbstractTest {
 
     @Test
     public void deleteChatShouldReturnBadRequest() {
-        
+
         var chatId = "id";
 
         ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
@@ -333,11 +333,11 @@ public class ChatRestControllerTest extends AbstractTest {
         problemDetailResponse.setDetail("Bad Request");
 
         mockServerClient.when(request()
-        .withPath("/internal/chats/" + chatId + "/participants")
-        .withMethod(HttpMethod.POST))
-        .withId(mockId)
-        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
-                .withBody(JsonBody.json(problemDetailResponse)));
+                .withPath("/internal/chats/" + chatId + "/participants")
+                .withMethod(HttpMethod.POST))
+                .withId(mockId)
+                .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                        .withBody(JsonBody.json(problemDetailResponse)));
 
         given()
                 .when()
@@ -383,7 +383,7 @@ public class ChatRestControllerTest extends AbstractTest {
 
     @Test
     public void getChatMessagesShouldReturnBadRequest() {
-                
+
         var chatId = "id";
 
         ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
@@ -391,11 +391,11 @@ public class ChatRestControllerTest extends AbstractTest {
         problemDetailResponse.setDetail("Bad Request");
 
         mockServerClient.when(request()
-        .withPath("/internal/chats/" + chatId + "/messages")
-        .withMethod(HttpMethod.GET))
-        .withId(mockId)
-        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
-                .withBody(JsonBody.json(problemDetailResponse)));
+                .withPath("/internal/chats/" + chatId + "/messages")
+                .withMethod(HttpMethod.GET))
+                .withId(mockId)
+                .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                        .withBody(JsonBody.json(problemDetailResponse)));
 
         given()
                 .when()
@@ -441,7 +441,7 @@ public class ChatRestControllerTest extends AbstractTest {
 
     @Test
     public void getChatParticipantsShouldReturnBadRequest() {
-                
+
         var chatId = "id";
 
         ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
@@ -449,11 +449,11 @@ public class ChatRestControllerTest extends AbstractTest {
         problemDetailResponse.setDetail("Bad Request");
 
         mockServerClient.when(request()
-        .withPath("/internal/chats/" + chatId + "/participants")
-        .withMethod(HttpMethod.GET))
-        .withId(mockId)
-        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
-                .withBody(JsonBody.json(problemDetailResponse)));
+                .withPath("/internal/chats/" + chatId + "/participants")
+                .withMethod(HttpMethod.GET))
+                .withId(mockId)
+                .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                        .withBody(JsonBody.json(problemDetailResponse)));
 
         given()
                 .when()
@@ -506,7 +506,7 @@ public class ChatRestControllerTest extends AbstractTest {
 
     @Test
     public void updateChatShouldReturnBadRequest() {
-                
+
         var chatId = "id";
 
         ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
@@ -514,11 +514,11 @@ public class ChatRestControllerTest extends AbstractTest {
         problemDetailResponse.setDetail("Bad Request");
 
         mockServerClient.when(request()
-        .withPath("/internal/chats/" + chatId)
-        .withMethod(HttpMethod.PUT))
-        .withId(mockId)
-        .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
-                .withBody(JsonBody.json(problemDetailResponse)));
+                .withPath("/internal/chats/" + chatId)
+                .withMethod(HttpMethod.PUT))
+                .withId(mockId)
+                .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                        .withBody(JsonBody.json(problemDetailResponse)));
 
         given()
                 .when()

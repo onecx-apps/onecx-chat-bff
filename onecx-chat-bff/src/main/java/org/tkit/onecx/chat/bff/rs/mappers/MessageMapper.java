@@ -3,9 +3,9 @@ package org.tkit.onecx.chat.bff.rs.mappers;
 import java.util.List;
 
 import org.mapstruct.Mapper;
-import org.openapi.quarkus.onecx_chat_internal_openapi_yaml.model.CreateMessage;
-import org.openapi.quarkus.onecx_chat_internal_openapi_yaml.model.Message;
 
+import gen.org.tkit.onecx.chat.bff.clients.model.CreateMessage;
+import gen.org.tkit.onecx.chat.bff.clients.model.Message;
 import gen.org.tkit.onecx.chat.bff.rs.internal.model.CreateMessageDTO;
 import gen.org.tkit.onecx.chat.bff.rs.internal.model.MessageDTO;
 
