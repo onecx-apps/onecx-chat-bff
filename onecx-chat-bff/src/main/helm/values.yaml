@@ -1,9 +1,0 @@
-app:
-  name: bff
-  image: 
-    repository: "onecx-apps/onecx-chat-bff/onecx-chat-bff"
-
-    operator:
-      # Permission
-      permission:
-        enabled: false

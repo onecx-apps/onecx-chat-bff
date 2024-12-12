@@ -11,6 +11,10 @@ tags:
 paths:
   /chats/{chatId}/messages:
     get:
+      x-onecx:
+        permissions:
+          message:
+            - read
       tags:
         - chats
       description: Return list of messages
@@ -32,6 +36,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/Message'
     post:
+      x-onecx:
+        permissions:
+          message:
+            - write
       tags:
         - chats
       description: creates a Message
@@ -69,6 +77,10 @@ paths:
                 $ref: '#/components/schemas/ProblemDetailResponse'
   /chats/{chatId}/participants:
     get:
+      x-onecx:
+        permissions:
+          participant:
+            - read
       tags:
         - chats
       description: Return list of participants
@@ -90,6 +102,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/Participant'
     post:
+      x-onecx:
+        permissions:
+          participant:
+            - write
       tags:
         - chats
       description: add a participant
@@ -127,6 +143,10 @@ paths:
                 $ref: '#/components/schemas/ProblemDetailResponse'
   /chats/{chatId}/participants/{participantId}:
     delete:
+      x-onecx:
+        permissions:
+          participant:
+            - delete
       tags:
         - chats
       description: remove a participant
@@ -153,6 +173,10 @@ paths:
                 $ref: '#/components/schemas/ProblemDetailResponse'
   /participants:
     get:
+      x-onecx:
+        permissions:
+          participant:
+            - read
       tags:
         - participants
       description: Get all potential participants
@@ -174,6 +198,10 @@ paths:
                 $ref: '#/components/schemas/ProblemDetailResponse'        
   /chats:
     get:
+      x-onecx:
+        permissions:
+          chat:
+            - read
       tags:
         - chats
       description: Return list of chats
@@ -201,6 +229,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/ChatPageResult'
     post:
+      x-onecx:
+        permissions:
+          chat:
+            - write
       tags:
         - chats
       description: Create chat
@@ -232,6 +264,10 @@ paths:
                 $ref: '#/components/schemas/ProblemDetailResponse'
   /chats/{id}:
     get:
+      x-onecx:
+        permissions:
+          chat:
+            - read
       tags:
         - chats
       description: Return chat by ID
@@ -252,6 +288,10 @@ paths:
         "404":
           description: Not found
     put:
+      x-onecx:
+        permissions:
+          chat:
+            - write
       tags:
         - chats
       description: Update chat by ID
@@ -280,6 +320,10 @@ paths:
         "404":
           description: Chat not found
     delete:
+      x-onecx:
+        permissions:
+          chat:
+            - delete
       tags:
         - chats
       description: Delete chat by ID
@@ -295,6 +339,10 @@ paths:
           description: No Content
   /chats/search:
     post:
+      x-onecx:
+        permissions:
+          chat:
+            - read
       tags:
         - chats
       description: Search for chats

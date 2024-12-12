@@ -11,25 +11,14 @@ import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.Response;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-import org.tkit.onecx.chat.bff.rs.mappers.ChatMapper;
-import org.tkit.onecx.chat.bff.rs.mappers.MessageMapper;
-import org.tkit.onecx.chat.bff.rs.mappers.ParticipantMapper;
+import org.jboss.resteasy.reactive.ClientWebApplicationException;
+import org.jboss.resteasy.reactive.server.ServerExceptionMapper;
+import org.tkit.onecx.chat.bff.rs.mappers.*;
 
 import gen.org.tkit.onecx.chat.bff.clients.api.ChatsInternalApi;
-import gen.org.tkit.onecx.chat.bff.clients.model.Chat;
-import gen.org.tkit.onecx.chat.bff.clients.model.ChatPageResult;
-import gen.org.tkit.onecx.chat.bff.clients.model.Message;
-import gen.org.tkit.onecx.chat.bff.clients.model.Participant;
+import gen.org.tkit.onecx.chat.bff.clients.model.*;
 import gen.org.tkit.onecx.chat.bff.rs.internal.ChatsApiService;
-import gen.org.tkit.onecx.chat.bff.rs.internal.model.AddParticipantDTO;
-import gen.org.tkit.onecx.chat.bff.rs.internal.model.ChatDTO;
-import gen.org.tkit.onecx.chat.bff.rs.internal.model.ChatPageResultDTO;
-import gen.org.tkit.onecx.chat.bff.rs.internal.model.ChatSearchCriteriaDTO;
-import gen.org.tkit.onecx.chat.bff.rs.internal.model.CreateChatDTO;
-import gen.org.tkit.onecx.chat.bff.rs.internal.model.CreateMessageDTO;
-import gen.org.tkit.onecx.chat.bff.rs.internal.model.MessageDTO;
-import gen.org.tkit.onecx.chat.bff.rs.internal.model.ParticipantDTO;
-import gen.org.tkit.onecx.chat.bff.rs.internal.model.UpdateChatDTO;
+import gen.org.tkit.onecx.chat.bff.rs.internal.model.*;
 
 @ApplicationScoped
 public class ChatRestController implements ChatsApiService {
@@ -50,13 +39,17 @@ public class ChatRestController implements ChatsApiService {
     @Inject
     ChatSocket socket;
 
+    @Inject
+    ExceptionMapper exceptionMapper;
+
     List<ChatDTO> chats = new ArrayList<>();
 
     @Override
     public Response addParticipant(String chatId, @Valid @NotNull AddParticipantDTO addParticipantDTO) {
-        Participant p = this.client.addParticipant(chatId, participantMapper.map(addParticipantDTO))
-                .readEntity(Participant.class);
-        return Response.status(200).entity(participantMapper.map(p)).build();
+        try (Response response = this.client.addParticipant(chatId, participantMapper.map(addParticipantDTO))) {
+            Participant p = response.readEntity(Participant.class);
+            return Response.status(200).entity(participantMapper.map(p)).build();
+        }
     }
 
     @Override
@@ -147,6 +140,11 @@ public class ChatRestController implements ChatsApiService {
         // TODO implement participant removal in SVC
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeParticipant'");
+    }
+
+    @ServerExceptionMapper
+    public Response exception(ClientWebApplicationException ex) {
+        return exceptionMapper.clientException(ex);
     }
 
 }
