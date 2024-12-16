@@ -46,7 +46,7 @@ public class ChatRestController implements ChatsApiService {
 
     @Override
     public Response addParticipant(String chatId, @Valid @NotNull AddParticipantDTO addParticipantDTO) {
-        try (Response response = this.client.addParticipant(chatId, participantMapper.map(addParticipantDTO))) {
+        try (Response response = client.addParticipant(chatId, participantMapper.map(addParticipantDTO))) {
             Participant p = response.readEntity(Participant.class);
             return Response.status(200).entity(participantMapper.map(p)).build();
         }
@@ -54,17 +54,18 @@ public class ChatRestController implements ChatsApiService {
 
     @Override
     public Response createChat(@Valid @NotNull CreateChatDTO createChatDTO) {
-        Chat c = client.createChat(mapper.map(createChatDTO)).readEntity(Chat.class);
-        return Response.status(200).entity(mapper.map(c)).build();
+        try (Response response = client.createChat(mapper.map(createChatDTO))) {
+            Chat c = response.readEntity(Chat.class);
+            return Response.status(200).entity(mapper.map(c)).build();
+        }
     }
 
     @Override
     public Response createChatMessage(String chatId, @Valid @NotNull CreateMessageDTO createMessageDTO) {
-        client.createChatMessage(chatId, messageMapper.map(createMessageDTO));
+        try (Response response = client.createChatMessage(chatId, messageMapper.map(createMessageDTO))) {
+            MessageDTO mDto = messageMapper.mapToMessage(createMessageDTO);
 
-        MessageDTO mDto = messageMapper.mapToMessage(createMessageDTO);
-
-        try (Response r = getChatParticipants(chatId)) {
+            Response r = getChatParticipants(chatId);
             List<ParticipantDTO> l = r.readEntity(new GenericType<List<ParticipantDTO>>() {
             });
             List<String> userNames = new ArrayList<>();
@@ -73,9 +74,9 @@ public class ChatRestController implements ChatsApiService {
                 userNames.add(p.getUserName());
             });
             this.socket.sendMessage(userNames, chatId, mDto);
-        }
 
-        return Response.status(200).entity(mDto).build();
+            return Response.status(200).entity(mDto).build();
+        }
     }
 
     @Override
@@ -87,43 +88,51 @@ public class ChatRestController implements ChatsApiService {
 
     @Override
     public Response getChatById(String id) {
-        Chat c = client.getChatById(id).readEntity(Chat.class);
-        ChatDTO dto = mapper.map(c);
-        return Response.status(200).entity(dto).build();
+        try (Response response = client.getChatById(id)) {
+            Chat c = response.readEntity(Chat.class);
+            ChatDTO dto = mapper.map(c);
+            return Response.status(200).entity(dto).build();
+        }
     }
 
     @Override
     public Response getChatMessages(String chatId) {
-        List<Message> m = client.getChatMessages(chatId).readEntity(new GenericType<List<Message>>() {
-        });
-        List<MessageDTO> m2 = messageMapper.map(m);
-        return Response.status(200).entity(m2).build();
+        try (Response response = client.getChatMessages(chatId)) {
+            List<Message> m = response.readEntity(new GenericType<List<Message>>() {
+            });
+            List<MessageDTO> m2 = messageMapper.map(m);
+            return Response.status(200).entity(m2).build();
+        }
     }
 
     @Override
     public Response getChatParticipants(String chatId) {
-        List<Participant> p = client.getChatParticipants(chatId).readEntity(new GenericType<List<Participant>>() {
-        });
-        List<ParticipantDTO> p2 = participantMapper.map(p);
-        return Response.status(200).entity(p2).build();
+        try (Response response = client.getChatParticipants(chatId)) {
+            List<Participant> p = response.readEntity(new GenericType<List<Participant>>() {
+            });
+            List<ParticipantDTO> p2 = participantMapper.map(p);
+            return Response.status(200).entity(p2).build();
+        }
     }
 
     @Override
     public Response getChats(Integer pageNumber, Integer pageSize) {
-        ChatPageResult result = client.getChats(pageNumber, pageSize)
-                .readEntity(new GenericType<ChatPageResult>() {
-                });
-        ChatPageResultDTO resultDTOs = mapper.map(result);
-        return Response.status(200).entity(resultDTOs).build();
+        try (Response response = client.getChats(pageNumber, pageSize)) {
+            ChatPageResult result = response.readEntity(new GenericType<ChatPageResult>() {
+            });
+            ChatPageResultDTO resultDTOs = mapper.map(result);
+            return Response.status(200).entity(resultDTOs).build();
+        }
     }
 
     @Override
     public Response searchChats(@Valid @NotNull ChatSearchCriteriaDTO chatSearchCriteriaDTO) {
-        ChatPageResult result = client.searchChats(mapper.map(chatSearchCriteriaDTO))
-                .readEntity(new GenericType<ChatPageResult>() {
-                });
-        ChatPageResultDTO resultDTO = mapper.map(result);
-        return Response.status(200).entity(resultDTO).build();
+        try (Response response = client.searchChats(mapper.map(chatSearchCriteriaDTO))) {
+            ChatPageResult result = response.readEntity(new GenericType<ChatPageResult>() {
+            });
+            ChatPageResultDTO resultDTO = mapper.map(result);
+            return Response.status(200).entity(resultDTO).build();
+        }
     }
 
     @Override
