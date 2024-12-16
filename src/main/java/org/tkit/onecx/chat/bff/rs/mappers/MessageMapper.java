@@ -22,6 +22,4 @@ public interface MessageMapper {
     MessageDTO mapToMessage(CreateMessageDTO createMessageDTO);
 
     List<MessageDTO> map(List<Message> messages);
-
-    // List<Message> map(List<MessageDTO> messages);
 }

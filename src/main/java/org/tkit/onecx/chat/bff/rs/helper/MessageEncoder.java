@@ -21,7 +21,6 @@ public class MessageEncoder implements Encoder.Text<WebsocketHelperDTO> {
             mapper.registerModule(new JavaTimeModule());
             return mapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return "";
