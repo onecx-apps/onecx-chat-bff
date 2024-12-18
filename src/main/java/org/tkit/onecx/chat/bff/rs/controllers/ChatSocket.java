@@ -3,6 +3,7 @@ package org.tkit.onecx.chat.bff.rs.controllers;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.websocket.OnClose;
@@ -19,6 +20,8 @@ import gen.org.tkit.onecx.chat.bff.rs.internal.model.WebsocketHelperDTO;
 @ServerEndpoint(value = "/chats/socket/{userName}", encoders = MessageEncoder.class)
 @ApplicationScoped
 public class ChatSocket {
+
+    private static final Logger LOGGER = Logger.getLogger(ChatSocket.class.getName());
 
     Map<String, Session> sessions = new ConcurrentHashMap<>();
 
@@ -42,7 +45,7 @@ public class ChatSocket {
             if (session != null) {
                 session.getAsyncRemote().sendObject(helperDTO, result -> {
                     if (result.getException() != null) {
-                        System.out.println("Unable to send message: " + result.getException());
+                        LOGGER.info("Unable to send message: " + result.getException());
                     }
                 });
             }

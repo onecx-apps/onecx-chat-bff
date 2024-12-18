@@ -6,12 +6,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.tkit.quarkus.rs.mappers.OffsetDateTimeMapper;
 
-import gen.org.tkit.onecx.chat.bff.clients.model.*;
 import gen.org.tkit.onecx.chat.bff.rs.internal.model.ChatDTO;
 import gen.org.tkit.onecx.chat.bff.rs.internal.model.ChatPageResultDTO;
 import gen.org.tkit.onecx.chat.bff.rs.internal.model.ChatSearchCriteriaDTO;
 import gen.org.tkit.onecx.chat.bff.rs.internal.model.CreateChatDTO;
 import gen.org.tkit.onecx.chat.bff.rs.internal.model.UpdateChatDTO;
+import gen.org.tkit.onecx.chat.clients.model.*;
 
 @Mapper(uses = { OffsetDateTimeMapper.class })
 public interface ChatMapper {

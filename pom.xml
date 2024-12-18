@@ -11,7 +11,7 @@
   <groupId>org.tkit.onecx.chat.bff.rs</groupId>
 
   <artifactId>onecx-chat-bff</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>999-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -144,7 +144,6 @@
               <modelPackage>gen.org.tkit.onecx.chat.bff.rs.internal.model</modelPackage>
               <generateModelTests>true</generateModelTests>
               <generateModelDocumentation>true</generateModelDocumentation>
-              <typeMappings>File=byte[]</typeMappings>
             </configuration>
           </execution>
         </executions>

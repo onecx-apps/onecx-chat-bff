@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 
-import gen.org.tkit.onecx.chat.bff.clients.model.CreateMessage;
-import gen.org.tkit.onecx.chat.bff.clients.model.Message;
 import gen.org.tkit.onecx.chat.bff.rs.internal.model.CreateMessageDTO;
 import gen.org.tkit.onecx.chat.bff.rs.internal.model.MessageDTO;
+import gen.org.tkit.onecx.chat.clients.model.CreateMessage;
+import gen.org.tkit.onecx.chat.clients.model.Message;
 
 @Mapper
 public interface MessageMapper {

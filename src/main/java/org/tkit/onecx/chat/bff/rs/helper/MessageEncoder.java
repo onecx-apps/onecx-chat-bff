@@ -12,13 +12,16 @@ import gen.org.tkit.onecx.chat.bff.rs.internal.model.WebsocketHelperDTO;
 
 public class MessageEncoder implements Encoder.Text<WebsocketHelperDTO> {
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper mapper = new ObjectMapper();
+
+    static {
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        mapper.registerModule(new JavaTimeModule());
+    }
 
     @Override
     public String encode(WebsocketHelperDTO object) throws EncodeException {
         try {
-            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-            mapper.registerModule(new JavaTimeModule());
             return mapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
             e.printStackTrace();

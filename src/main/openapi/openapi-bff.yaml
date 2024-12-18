@@ -190,12 +190,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Participant'
-        "400":  
-          description: Bad request
-          content:     
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetailResponse'        
   /chats:
     get:
       x-onecx:

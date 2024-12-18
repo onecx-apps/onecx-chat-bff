@@ -22,8 +22,8 @@ import org.mockserver.model.MediaType;
 import org.tkit.onecx.chat.bff.rs.controllers.ChatRestController;
 import org.tkit.quarkus.log.cdi.LogService;
 
-import gen.org.tkit.onecx.chat.bff.clients.model.*;
 import gen.org.tkit.onecx.chat.bff.rs.internal.model.*;
+import gen.org.tkit.onecx.chat.clients.model.*;
 import gen.org.tkit.onecx.permission.model.ProblemDetailResponse;
 import io.quarkiverse.mockserver.test.InjectMockServerClient;
 import io.quarkiverse.mockserver.test.MockServerTestResource;
@@ -60,32 +60,9 @@ public class ChatRestControllerTest extends AbstractTest {
     @Test
     public void getChatChatByIdTest() {
         var chatId = "id";
-        String result = "{\r\n" +
-                "  \"version\": 0,\r\n" +
-                "  \"creationDate\": \"2022-03-10T12:15:50-04:00\",\r\n" +
-                "  \"creationUser\": \"string\",\r\n" +
-                "  \"modificationDate\": \"2022-03-10T12:15:50-04:00\",\r\n" +
-                "  \"modificationUser\": \"string\",\r\n" +
-                "  \"id\": \"id\",\r\n" +
-                "  \"type\": \"HUMAN_CHAT\",\r\n" +
-                "  \"topic\": \"string\",\r\n" +
-                "  \"summary\": \"string\",\r\n" +
-                "  \"appId\": \"string\",\r\n" +
-                "  \"participants\": [\r\n" +
-                "    {\r\n" +
-                "      \"version\": 0,\r\n" +
-                "      \"creationDate\": \"2022-03-10T12:15:50-04:00\",\r\n" +
-                "      \"creationUser\": \"string\",\r\n" +
-                "      \"modificationDate\": \"2022-03-10T12:15:50-04:00\",\r\n" +
-                "      \"modificationUser\": \"string\",\r\n" +
-                "      \"id\": \"string\",\r\n" +
-                "      \"type\": \"HUMAN\",\r\n" +
-                "      \"userId\": \"string\",\r\n" +
-                "      \"userName\": \"string\",\r\n" +
-                "      \"email\": \"string\"\r\n" +
-                "    }\r\n" +
-                "  ]\r\n" +
-                "}";
+
+        ChatDTO chatDTO = new ChatDTO();
+        chatDTO.setType(ChatTypeDTO.HUMAN_CHAT);
 
         mockServerClient
                 .when(request()
@@ -95,7 +72,7 @@ public class ChatRestControllerTest extends AbstractTest {
                 .respond(httpRequest -> response().withStatusCode(OK.getStatusCode())
                         .withHeaders(new Header(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON))
                         .withContentType(MediaType.APPLICATION_JSON)
-                        .withBody(result));
+                        .withBody(JsonBody.json(chatDTO)));
 
         var res = given()
                 .when()
@@ -849,10 +826,4 @@ public class ChatRestControllerTest extends AbstractTest {
         assertThat(response.getDetail()).isEqualTo("Bad Request");
         assertThat(Integer.valueOf(response.getErrorCode())).isEqualTo(BAD_REQUEST.getStatusCode());
     }
-
-    @Test
-    public void removeParticipant() {
-        //TODO
-    }
-
 }
