@@ -118,8 +118,7 @@ public class ChatRestController implements ChatsApiService {
     @Override
     public Response getChats(Integer pageNumber, Integer pageSize) {
         try (Response response = client.getChats(pageNumber, pageSize)) {
-            ChatPageResult result = response.readEntity(new GenericType<ChatPageResult>() {
-            });
+            ChatPageResult result = response.readEntity(ChatPageResult.class);
             ChatPageResultDTO resultDTOs = mapper.map(result);
             return Response.status(Response.Status.OK).entity(resultDTOs).build();
         }
@@ -128,8 +127,7 @@ public class ChatRestController implements ChatsApiService {
     @Override
     public Response searchChats(ChatSearchCriteriaDTO chatSearchCriteriaDTO) {
         try (Response response = client.searchChats(mapper.map(chatSearchCriteriaDTO))) {
-            ChatPageResult result = response.readEntity(new GenericType<ChatPageResult>() {
-            });
+            ChatPageResult result = response.readEntity(ChatPageResult.class);
             ChatPageResultDTO resultDTO = mapper.map(result);
             return Response.status(Response.Status.OK).entity(resultDTO).build();
         }

@@ -26,8 +26,6 @@ import gen.org.tkit.onecx.chat.bff.rs.internal.model.*;
 import gen.org.tkit.onecx.chat.clients.model.*;
 import gen.org.tkit.onecx.permission.model.ProblemDetailResponse;
 import io.quarkiverse.mockserver.test.InjectMockServerClient;
-import io.quarkiverse.mockserver.test.MockServerTestResource;
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.keycloak.client.KeycloakTestClient;
@@ -36,7 +34,6 @@ import io.restassured.common.mapper.TypeRef;
 @QuarkusTest
 @LogService
 @TestHTTPEndpoint(ChatRestController.class)
-@QuarkusTestResource(MockServerTestResource.class)
 public class ChatRestControllerTest extends AbstractTest {
 
     @InjectMockServerClient
