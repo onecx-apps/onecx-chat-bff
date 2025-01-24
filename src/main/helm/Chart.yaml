@@ -6,7 +6,7 @@ description: Onecx chat bff
 keywords:
   - chat
 sources:
-  - https://github.com/onecx-apps/onecx-chat-bff/onecx-chat-bff
+  - https://github.com/onecx-apps/onecx-chat-bff
 maintainers:
   - name: Tkit Developer
     email: tkit_dev@1000kit.org
